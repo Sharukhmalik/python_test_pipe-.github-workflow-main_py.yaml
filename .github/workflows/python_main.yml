@@ -20,7 +20,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        python hello.py 
+        # python hello.py 
 
     - name: Deploy to server
       run: |
