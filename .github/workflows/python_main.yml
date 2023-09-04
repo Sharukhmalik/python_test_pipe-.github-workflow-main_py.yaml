@@ -3,8 +3,7 @@ name: Deploy Python Scripts
 on:
   push:
     branches:
-      - main  # Adjust this to your main branch name
-
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -20,7 +19,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        # python hello.py 
+        python hello.py 
 
     - name: Deploy to server
       run: |
