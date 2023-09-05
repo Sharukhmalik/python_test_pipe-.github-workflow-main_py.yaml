@@ -23,4 +23,4 @@ jobs:
       - name: Deploy Python Script
         run: >
           scp -o StrictHostKeyChecking=no hello.py
-          es2-user@107.21.198.166:/home/ec2-user/test
+          ec2-user@107.21.198.166:/home/ec2-user/test
