@@ -18,12 +18,8 @@ jobs:
           mkdir ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          EC2_HOST: ${{ secrets.EC2_HOST }}
-
 
       - name: Deploy Python Script
         run: |
-          scp -o StrictHostKeyChecking=no hello.py ec2-user@107.21.198.166:/home/ec2-user/test
+          scp -o StrictHostKeyChecking=no hello.py $EC2_USERNAME@$EC2_HOST:/home/ec2-user/test
 
