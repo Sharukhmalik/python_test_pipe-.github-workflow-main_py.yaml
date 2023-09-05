@@ -18,6 +18,10 @@ jobs:
           mkdir ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+      - name: Debug Variables
+        run: |
+          echo "EC2_USERNAME: $EC2_USERNAME"
+          echo "EC2_HOST: $EC2_HOST"
 
       - name: Deploy Python Script
         run: |
