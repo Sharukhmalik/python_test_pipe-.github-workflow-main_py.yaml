@@ -25,7 +25,7 @@ jobs:
 
       - name: Deploy Python Script
         run: |
-          - scp -o StrictHostKeyChecking=no -v hello.py $EC2_USERNAME@$EC2_HOST:/home/ec2-user/test
+          scp -o StrictHostKeyChecking=no -v hello.py $EC2_USERNAME@$EC2_HOST:/home/ec2-user/test
         env:
           EC2_USERNAME: ${{ secrets.EC2_USERNAME }}
           EC2_HOST: ${{ secrets.EC2_HOST }}
