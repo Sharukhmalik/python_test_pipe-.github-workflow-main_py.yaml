@@ -24,3 +24,7 @@ jobs:
         run: >
           scp -o StrictHostKeyChecking=no hello.py
           ${{secrets.EC2_USERNAME}}@${{secrets.EC2_HOST}}:/home/ec2-user/test
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
