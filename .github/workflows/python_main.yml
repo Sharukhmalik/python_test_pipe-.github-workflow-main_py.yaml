@@ -1,18 +1,15 @@
+---
 name: Deploy Python Script to EC2
-
 on:
   push:
     branches:
       - main
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
       - name: Set up SSH
         run: |
           mkdir ~/.ssh
@@ -22,8 +19,7 @@ jobs:
         run: |
           echo "EC2_USERNAME: $EC2_USERNAME"
           echo "EC2_HOST: $EC2_HOST"
-
       - name: Deploy Python Script
-        run: |
-          scp -o StrictHostKeyChecking=no hello.py es2-user@107.21.198.166:/home/ec2-user/test
-
+        run: >
+          scp -o StrictHostKeyChecking=no hello.py
+          es2-user@107.21.198.166:/home/ec2-user/test
