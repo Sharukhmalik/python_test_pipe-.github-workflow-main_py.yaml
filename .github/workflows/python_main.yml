@@ -3,26 +3,37 @@ name: Deploy Python Scripts
 on:
   push:
     branches:
-      - main  # Adjust this to your main branch name
+      - main # Change to the appropriate branch
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # You can change the runner as needed
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.11
+ 
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -t rsa $EC2_HOST >> ~/.ssh/known_hosts
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
 
-    - name: Install dependencies
-      run: |
-        # python hello.py 
-    - name: Deploy to server
-      run: |
-        # Replace with your deployment script or commands
-        
-        scp -r hello.py ec2-user@107.21.198.166:/home/ec2-user/test/
+     - name: Deploy Python Script
+        run: |
+          scp -i ~/.ssh/id_rsa -r hello.py $EC2_USERNAME@$EC2_HOST:/home/$EC2_USERNAME/test
+        env:
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          EC2_USERNAME: ${{ secrets.EC2_USERNAME }} 
+
+
